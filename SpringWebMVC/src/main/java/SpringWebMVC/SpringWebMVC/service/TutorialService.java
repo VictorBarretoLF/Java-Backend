@@ -17,6 +17,10 @@ public class TutorialService {
         return tutorialRepository.findAll();
     }
 
+    public List<Tutorial> findByTitleContainingIgnoreCase(String title) {
+        return tutorialRepository.findByTitleContainingIgnoreCase(title);
+    }
+
     public Tutorial save(Tutorial tutorial){
         Tutorial _tutorial = tutorialRepository
                 .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), tutorial.isPublished()));

@@ -36,6 +36,8 @@ public class TutorialController {
 
             if (title == null)
                 tutorials.addAll(tutorialService.findAll());
+            else
+                tutorials.addAll(tutorialService.findByTitleContainingIgnoreCase(title));
 
             if (tutorials.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
