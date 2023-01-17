@@ -16,4 +16,11 @@ public class TutorialService {
     public List<Tutorial> findAll() {
         return tutorialRepository.findAll();
     }
+
+    public Tutorial save(Tutorial tutorial){
+        Tutorial _tutorial = tutorialRepository
+                .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), tutorial.isPublished()));
+
+        return _tutorial;
+    }
 }

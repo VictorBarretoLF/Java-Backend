@@ -10,13 +10,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
 public class TutorialController {
 
     @Autowired
     TutorialService tutorialService;
+
+    @PostMapping("/tutorials")
+    public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
+        try {
+            Tutorial _tutorial = tutorialService
+                    .save(tutorial);
+            return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @GetMapping("/tutorials")
     public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
@@ -25,7 +36,6 @@ public class TutorialController {
 
             if (title == null)
                 tutorials.addAll(tutorialService.findAll());
-
 
             if (tutorials.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -36,4 +46,5 @@ public class TutorialController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
