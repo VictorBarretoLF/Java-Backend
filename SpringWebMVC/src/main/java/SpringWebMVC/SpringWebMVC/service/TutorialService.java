@@ -22,9 +22,8 @@ public class TutorialService {
     }
 
     public Tutorial save(Tutorial tutorial){
-        Tutorial _tutorial = tutorialRepository
-                .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), tutorial.isPublished()));
 
-        return _tutorial;
+        return tutorialRepository
+                .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), tutorial.isPublished()));
     }
 }
