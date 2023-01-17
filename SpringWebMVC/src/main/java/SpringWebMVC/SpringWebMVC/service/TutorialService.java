@@ -21,6 +21,12 @@ public class TutorialService {
         return tutorialRepository.findByTitleContainingIgnoreCase(title);
     }
 
+    public Tutorial findById(long id){
+        Optional<Tutorial> tutorialData = tutorialRepository.findById(id);
+
+        return tutorialData.orElse(null);
+    }
+
     public Tutorial save(Tutorial tutorial){
 
         return tutorialRepository

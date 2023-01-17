@@ -49,4 +49,15 @@ public class TutorialController {
         }
     }
 
+    @GetMapping("/tutorials/{id}")
+    public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
+        Tutorial tutorial = tutorialService.findById(id);
+
+        if (tutorial != null) {
+            return new ResponseEntity<>(tutorial, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
