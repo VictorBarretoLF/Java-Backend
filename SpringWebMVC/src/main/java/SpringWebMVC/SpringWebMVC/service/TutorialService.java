@@ -32,4 +32,18 @@ public class TutorialService {
         return tutorialRepository
                 .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), tutorial.isPublished()));
     }
+
+    public Tutorial updateTutorial(long id, Tutorial tutorial){
+        Optional<Tutorial> tutorialData = tutorialRepository.findById(id);
+
+        if (tutorialData.isPresent()) {
+            Tutorial _tutorial = tutorialData.get();
+            _tutorial.setTitle(tutorial.getTitle());
+            _tutorial.setDescription(tutorial.getDescription());
+            _tutorial.setPublished(tutorial.isPublished());
+            return tutorialRepository.save(_tutorial);
+        } else {
+            return null;
+        }
+    }
 }

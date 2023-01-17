@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
     List<Tutorial> findByTitleContainingIgnoreCase(String title);
+    List<Tutorial> findByPublished(boolean published);
 }

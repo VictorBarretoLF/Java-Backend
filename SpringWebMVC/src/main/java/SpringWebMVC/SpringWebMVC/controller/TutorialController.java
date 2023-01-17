@@ -60,4 +60,21 @@ public class TutorialController {
         }
     }
 
+    //TODO: CREATE THE PUT METHOD TO UPDATE THE TUTORIAL
+    @PutMapping("/tutorials/{id}")
+    public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") long id, @RequestBody Tutorial tutorial) {
+        Tutorial _tutorial = tutorialService.updateTutorial(id, tutorial);
+
+        if(_tutorial != null) {
+            return new ResponseEntity<>(_tutorial, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+    //TODO: DELETE TUTORIAL BY ID
+    //TODO: DELETE ALL TUTORIALS
+    //TODO: GET TUTORIALS BY PUBLISHED
+
 }
