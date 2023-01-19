@@ -47,7 +47,15 @@ public class TutorialService {
         }
     }
 
+    public List<Tutorial> findByPublished(boolean b){
+        return tutorialRepository.findByPublished(b);
+    }
+
     public void deleteById(long id){
         tutorialRepository.deleteById(id);
+    }
+
+    public void deleteAll() {
+        tutorialRepository.deleteAll();
     }
 }

@@ -71,6 +71,20 @@ public class TutorialController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/tutorials/published")
+    public ResponseEntity<List<Tutorial>> findByPublished() {
+        try {
+            List<Tutorial> tutorials =  tutorialService.findByPublished(true);
+
+            if (tutorials.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(tutorials, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/tutorials/{id}")
     public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") long id) {
         try {
@@ -81,8 +95,14 @@ public class TutorialController {
         }
     }
 
-    //TODO: DELETE TUTORIAL BY ID
-    //TODO: DELETE ALL TUTORIALS
-    //TODO: GET TUTORIALS BY PUBLISHED
+    @DeleteMapping("/tutorials")
+    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+        try {
+            tutorialService.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
