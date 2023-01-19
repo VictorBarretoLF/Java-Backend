@@ -71,6 +71,16 @@ public class TutorialController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @DeleteMapping("/tutorials/{id}")
+    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") long id) {
+        try {
+            tutorialService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     //TODO: DELETE TUTORIAL BY ID
     //TODO: DELETE ALL TUTORIALS
     //TODO: GET TUTORIALS BY PUBLISHED

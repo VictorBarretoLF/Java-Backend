@@ -46,4 +46,8 @@ public class TutorialService {
             return null;
         }
     }
+
+    public void deleteById(long id){
+        tutorialRepository.deleteById(id);
+    }
 }
