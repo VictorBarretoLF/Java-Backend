@@ -16,6 +16,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,6 +55,23 @@ class TutorialControllerTest {
         when(tutorialService.findById(id)).thenReturn(null);
         mockMvc.perform(get("/api/tutorials/{id}", id))
                 .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    void shouldReturnListOfTutorials() throws Exception {
+        List<Tutorial> tutorials = new ArrayList<>(
+                Arrays.asList(new Tutorial(1, "Sprint Test One 1", "Test Description 1", true),
+                        new Tutorial(2, "Sprint Test Two 2", "Test Description 2", true),
+                        new Tutorial(3, "Sprint Test Three 3", "Test Description 3", true)));
+
+        when(tutorialService.findAll()).thenReturn(tutorials);
+        mockMvc.perform(get("/api/tutorials"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(tutorials.size()))
+                .andExpect(jsonPath("$.[1].id").value(tutorials.get(1).getId()))
+                .andExpect(jsonPath("$.[1].title").value(tutorials.get(1).getTitle()))
+                .andExpect(jsonPath("$.[1].description").value(tutorials.get(1).getDescription()))
                 .andDo(print());
     }
 }
